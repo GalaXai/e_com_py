@@ -1,15 +1,13 @@
-from creditcard.card import Card
+from flask import Flask, render_template
+
+app = Flask(__name__)
 
 
-def main():
-    card1 = Card("123456789")
-    card1.assigncredit(1000)
-    card1.withdraw(500)
-    card1.repay_credit(100)
-    print(card1.get_balance())
-    print(card1.get_credit())
-    print(card1.get_credit_to_repay())
+# Routes
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
-    main()
+    app.run(debug=True)
