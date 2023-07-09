@@ -7,11 +7,11 @@ class ProductCatalog:
         self.product_storage = product_storage
 
     def add_product(self, name, description) -> Product:
-        product = Product(uuid.uuid4(), name, description)
+        product = Product(str(uuid.uuid4()), name, description)
         self.product_storage.add_product(product)
         return product
 
-    def get_all_products(self):
+    def get_all_products(self) -> list:
         return self.product_storage.get_all_products()
 
     def get_product_by_uuid(self, product_uuid):
@@ -39,7 +39,6 @@ class ProductCatalog:
 
         product.set_online()
         self.product_storage.update_product(product)
-
 
     def get_all_published_products(self) -> list:
         return self.product_storage.get_all_published_products()
