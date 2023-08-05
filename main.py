@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify
 from sales.cart.cart import Cart
 from productcatalog.product_catalog import ProductCatalog
 from productcatalog.hashmap_product_storage import HashProductStorage
+from requests import request
 
 app = Flask(__name__)
 
@@ -43,6 +44,27 @@ def get_products():
         })
     return jsonify(products_for_api)
 
+@app.route('/api/add-to-cart/<product_uuid>', methods=['POST'])
+def add_to_cart(product_uuid):
+    # Process the received data and the productId
+    product = product_catalog.get_product_by_uuid(product_uuid)
+    cart.add_product(product,quantity=1)
+    # Return a JSON response
+    response = {
+        'status': 'success',
+        'message': f'Product with ID {product_uuid} added to cart successfully.'
+    }
+    return jsonify(response)
+
+@app.route('/api/get-current-offer', methods=['GET'])
+def get_current_offer():
+    print(cart)
+    print("get_current_offer", cart.get_total(), cart.get_items_count())
+    response = {
+        'total': cart.get_total(),
+        'items_count': cart.get_items_count(),
+    }
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True)

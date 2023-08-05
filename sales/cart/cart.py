@@ -7,14 +7,17 @@ class Cart:
 
     def add_product(self, product: Product, quantity: int) -> None:
         if product.get_uuid() in self.__products:
-            self.__products[product.get_uuid()] += quantity
+            self.__products[product.get_uuid()]['quantity'] += quantity
         else:
-            self.__products[product.get_uuid()] = quantity
+            self.__products[product.get_uuid()] = {
+                'product': product,
+                'quantity': quantity
+            }
 
     def remove_product(self, product: Product, quantity: int) -> None:
         if product.get_uuid() in self.__products:
-            if self.__products[product.get_uuid()] > quantity:
-                self.__products[product.get_uuid()] -= quantity
+            if self.__products[product.get_uuid()]['quantity'] > quantity:
+                self.__products[product.get_uuid()]['quantity'] -= quantity
             else:
                 del self.__products[product.get_uuid()]
 
@@ -29,8 +32,9 @@ class Cart:
 
     def get_total(self) -> int:
         total = 0
-        for product in self.__products:
-            total += product.get_price() * self.__products[product.get_uuid()]
+        for product_uuid in self.__products:
+            product = self.__products[product_uuid]['product']
+            total += product.get_price() * self.__products[product.get_uuid()]['quantity']
         return total
 
     def get_products(self) -> dict:
