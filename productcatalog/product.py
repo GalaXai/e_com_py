@@ -1,10 +1,10 @@
 class Product:
-    def __init__(self, uuid: object, name: str, desc: str) -> None:
+    def __init__(self, uuid: object, name: str, desc: str, price: int = 0, online: bool = False) -> None:
         self.__UUID = uuid
         self.__NAME = name
         self.__DESC = desc
-        self.__price = 0
-        self.__online = False
+        self.__price = price
+        self.__online = online
         self.__image = None
 
     "setters"
