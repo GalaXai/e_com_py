@@ -5,12 +5,10 @@ from productcatalog.hashmap_product_storage import HashProductStorage
 
 # noinspection DuplicatedCode
 class TestProductCatalog(unittest.TestCase):
-    def _init_poroduct_catalog(self):
+
+    def test_AllowsToAddProduct(self):
         product_catalog = ProductCatalog(HashProductStorage())
         product_catalog.add_product("Product 1", "Description 1")
-        return product_catalog
-    def test_AllowsToAddProduct(self):
-        product_catalog = self._init_poroduct_catalog()
         self.assertEqual(len(product_catalog.get_all_products()), 1)
 
     def test_AllowsToGetProductByUUID(self):

@@ -4,6 +4,7 @@ from sales.cart.cart import Cart
 from productcatalog.product_catalog import ProductCatalog
 from productcatalog.hashmap_product_storage import HashProductStorage
 
+
 class MyTestCase(unittest.TestCase):
     def prep_product_catalog(self) -> ProductCatalog:
         product_catalog = ProductCatalog(HashProductStorage())
@@ -19,9 +20,6 @@ class MyTestCase(unittest.TestCase):
             product_catalog.publish_product(product.get_uuid())
         return product_catalog
 
-    def test_something(self):
-        self.assertEqual(True, False)
-
     def test_add_to_cart(self):
         productcatalog = self.prep_product_catalog()
         cart = Cart()
@@ -29,6 +27,7 @@ class MyTestCase(unittest.TestCase):
         product = products[0]
         cart.add_product(product, 1)
         self.assertEqual(cart.get_items_count(), 1)
+
     def test_get_total_value(self):
         productcatalog = self.prep_product_catalog()
         cart = Cart()
@@ -36,9 +35,6 @@ class MyTestCase(unittest.TestCase):
         product = products[0]
         cart.add_product(product, 1)
         self.assertEqual(cart.get_total(), 100)
-
-
-
 
 
 if __name__ == '__main__':
